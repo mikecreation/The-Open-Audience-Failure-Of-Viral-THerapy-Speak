@@ -1,0 +1,907 @@
+%=====================================================================
+%  THE OPEN-AUDIENCE FAILURE OF VIRAL THERAPY-SPEAK
+%  Michael Zot - ZotBot Research Initiative
+%  Compile: pdfLaTeX (Overleaf default works). Two passes for refs.
+%  Final publication build - June 2026
+%=====================================================================
+\documentclass[10pt]{article}
+
+%---------------------- GEOMETRY & BASE --------------------------------
+\usepackage[a4paper,top=2.2cm,bottom=2.4cm,left=1.7cm,right=1.7cm,
+            columnsep=0.75cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage{charter}
+\usepackage[scaled=0.92]{helvet}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{ragged2e}
+\usepackage[table]{xcolor}
+\usepackage{multirow}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,calc,backgrounds,shadows.blur}
+\usepackage[most]{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{caption}
+
+% Unicode fallbacks for pdfLaTeX
+\DeclareUnicodeCharacter{00B7}{\ensuremath{\cdot}}
+\DeclareUnicodeCharacter{2192}{\ensuremath{\rightarrow}}
+\DeclareUnicodeCharacter{2260}{\ensuremath{\neq}}
+\DeclareUnicodeCharacter{2013}{--}
+\DeclareUnicodeCharacter{2014}{--}
+\DeclareUnicodeCharacter{2018}{`}
+\DeclareUnicodeCharacter{2019}{'}
+\DeclareUnicodeCharacter{201C}{``}
+\DeclareUnicodeCharacter{201D}{''}
+
+%---------------------- COLOR SYSTEM -----------------------------------
+\definecolor{ink}{HTML}{16263F}
+\definecolor{teal}{HTML}{0E7C7B}
+\definecolor{tealdark}{HTML}{0A5958}
+\definecolor{amber}{HTML}{E8A13C}
+\definecolor{amberdeep}{HTML}{C77F1A}
+\definecolor{mist}{HTML}{F2F6F7}
+\definecolor{mist2}{HTML}{E9F0F1}
+\definecolor{slate}{HTML}{55606E}
+\definecolor{risk}{HTML}{B3403A}
+
+%---------------------- HEADERS & FOOTERS ------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[L]{\color{slate}\sffamily\scriptsize ZOT (2026) · COGNITIVE SECURITY}
+\fancyhead[R]{\color{slate}\sffamily\scriptsize THE OPEN-AUDIENCE FAILURE OF VIRAL THERAPY-SPEAK}
+\fancyfoot[C]{\color{teal}\sffamily\small\thepage}
+\fancyfoot[L]{\color{slate}\sffamily\scriptsize Michael Zot · 2026}
+\fancyfoot[R]{\color{slate}\sffamily\scriptsize ORCID 0009-0001-9194-938X}
+
+%---------------------- SECTION TYPOGRAPHY -----------------------------
+\titleformat{\section}
+  {\sffamily\bfseries\large\color{ink}\raggedright}
+  {\colorbox{teal}{\color{white}\sffamily\bfseries~\thesection~}}
+  {0.5em}{}[{\vspace{1pt}\color{teal}\titlerule[1.1pt]}]
+\titleformat{\subsection}
+  {\sffamily\bfseries\color{tealdark}\raggedright}
+  {\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{1.4em}{0.8em}
+\titlespacing*{\subsection}{0pt}{1.1em}{0.4em}
+
+%---------------------- BOX LIBRARY ------------------------------------
+\newtcolorbox{keyclaim}{enhanced,breakable,
+  colback=mist,colframe=mist,boxrule=0pt,
+  borderline west={2.6pt}{0pt}{amber},
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  fontupper=\itshape}
+\newcounter{defbox}
+\newtcolorbox{defn}[1]{enhanced,breakable,
+  colback=mist2,colframe=mist2,boxrule=0pt,
+  borderline west={2.6pt}{0pt}{teal},
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  title={\sffamily\bfseries\color{tealdark}\refstepcounter{defbox}#1},
+  coltitle=tealdark,attach title to upper={\par\vspace{2pt}}}
+\newtcolorbox{methodnote}{enhanced,breakable,
+  colback=white,colframe=amber,boxrule=0.9pt,arc=2pt,
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  title={\sffamily\bfseries A NOTE ON METHOD},
+  coltitle=white,colbacktitle=amberdeep,
+  fonttitle=\small}
+\newtcolorbox{abstractpanel}{enhanced,breakable,
+  colback=mist,colframe=teal,boxrule=0.8pt,arc=3pt,
+  left=10pt,right=10pt,top=8pt,bottom=8pt}
+
+\captionsetup{font={small,sf},labelfont={bf,color=tealdark}}
+\setlist{nosep,leftmargin=1.4em}
+\raggedbottom
+\emergencystretch=2.5em
+\tolerance=1800
+\hyphenpenalty=300
+\exhyphenpenalty=50
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\RaggedRight\arraybackslash}X}
+
+%=====================================================================
+\begin{document}
+
+%---------------------- TITLE BLOCK ------------------------------------
+\begin{center}
+\vspace*{-0.6cm}
+{\color{teal}\rule{\textwidth}{2.2pt}}\\[2pt]
+{\color{amber}\rule{\textwidth}{0.7pt}}
+
+\vspace{0.9em}
+{\sffamily\bfseries\huge\color{ink}
+The Open-Audience Failure of Viral Therapy-Speak\par}
+\vspace{0.45em}
+{\sffamily\large\color{tealdark}
+Detection-Rule Leakage, Trust Camouflage, and MIPU/MAP Formation\\
+in Digital Pseudo-Psychology\par}
+
+\vspace{1.1em}
+{\sffamily\color{ink}\textbf{Michael Zot}}\\[1pt]
+{\sffamily\small\color{slate}
+Independent Researcher, Cognitive Security and Symbolic Intelligence\\
+Founder, ZotBot.ai \;·\; ORCID: 0009-0001-9194-938X}
+
+\vspace{0.8em}
+{\color{amber}\rule{\textwidth}{0.7pt}}\\[2pt]
+{\color{teal}\rule{\textwidth}{2.2pt}}
+\end{center}
+\vspace{0.6em}
+
+
+%---------------------- OPENING THESIS ------------------------------------
+\begin{tcolorbox}[enhanced,colback=ink,colframe=ink,arc=3pt,
+  left=12pt,right=12pt,top=10pt,bottom=10pt]
+{\sffamily\bfseries\color{amber}OPENING THESIS}\\[4pt]
+{\color{white}\small
+
+Abuse-awareness content is made for people who need help. At its best, it gives somebody a word for a private hell they could not explain. A person hears ``gaslighting'' or ``love bombing'' and suddenly the fog has a shape. That part is real, and this paper does not try to take it away.
+
+\par\vspace{6pt}
+
+The problem begins when that lesson leaves the helping room and enters the feed. A feed is not a clinic. It does not check who is watching, what role they play, what history they bring, or what they plan to do with the lesson. The victim sees it. The person doing harm sees it. The anxious viewer sees it. The person looking for a stronger word for a normal fight sees it. The creator chasing moral authority sees it. Nobody gets screened at the door. The lesson just goes out.
+
+\par\vspace{6pt}
+
+Accuracy alone cannot carry the whole burden. A correct rule can still become unstable when millions of strangers receive it without context. One viewer finds safety. Another finds a weapon. Another finds a script that lets them stop listening.
+
+\par\vspace{6pt}
+
+The paper tracks three risks inside that open room. \textbf{\color{amber}Detection-rule leakage} means a public warning can teach victims what to notice while also teaching some harmful people what to hide. \textbf{\color{amber}Trust camouflage} means a person can sound protective in public before anyone has checked how they behave in private. \textbf{\color{amber}MIPU/MAP} means a small label can change what someone notices, expects, and treats as proof long after the clip is gone.
+
+\par\vspace{6pt}
+
+OAPRM gives the argument a testable form. It names ten dimensions to score, eight claims that can lose, and six study designs other researchers could run. The supporting pieces already exist across concept creep, context collapse, memory science, DARVO, diagnostic labeling, misinformation persistence, algorithmic amplification, adversarial adaptation, affect labeling, estrangement, information hazards, and responsible disclosure. No single field proves the whole chain. Together they make the chain worth testing.
+
+\par\vspace{6pt}
+
+The standard is simple. Judge abuse education by every audience it trains: the victim, the abuser, the false accuser, the anxious watcher, the brand-building creator, and the person in the back row learning what to hide next.
+\par}
+\end{tcolorbox}
+
+\begin{methodnote}\small
+The opening is written to be felt, but the argument does not get to win because it sounds right. Section~12 gives eight ways the claims can fail. Section~13 sets the evidence bar. Section~14 gives studies that other people could run. If the data go against the framework, the framework has to change or come down.
+\end{methodnote}
+
+\clearpage
+\twocolumn
+
+\begin{abstractpanel}\small
+{\sffamily\bfseries\color{tealdark}ABSTRACT}\\[4pt]
+
+Therapy-speak has become one of the largest informal psychology systems online. Words like gaslighting, narcissist, trauma bond, love bombing, DARVO, boundaries, toxic, and no contact now move through TikTok, YouTube, Instagram, X, Reddit, podcasts, and group chats with almost no gatekeeping. Most criticism focuses on bad advice, loose credentials, self-diagnosis, and clinical words drifting from their original meanings. Those concerns matter, but they miss the larger structure: these lessons reach an open audience.
+
+\par\vspace{6pt}
+
+An open audience holds real victims, people in painful but non-abusive conflict, anxious viewers looking for certainty, people sharpening false accusations, creators chasing status, and the very people the lessons claim to expose. The algorithm does not know which row anyone sits in. A single detection rule reaches all of them at once.
+
+\par\vspace{6pt}
+
+This paper maps that loop. Clinical language leaks into daily talk. Platforms reward the most emotionally certain version. Creators compress hard cases into quick signs. Viewers carry those signs into relationships, comment sections, breakups, family fights, and moral performances. Some people finally name real harm. Some people mislabel ordinary conflict. Some learn how to sound safer while behaving the same.
+
+\par\vspace{6pt}
+
+The model rests on three ideas. Detection-rule leakage describes warnings that protect one viewer while giving another viewer evasion notes. Trust camouflage describes public fluency in abuse language that creates unearned moral trust. MIPU/MAP describes how a small input can change what a viewer notices, expects, and questions next, then harden into a broader interpretive lens when several such updates support one another.
+
+\par\vspace{6pt}
+
+OAPRM, the Open-Audience Pseudo-Psychology Risk Model, turns the concern into a coding instrument. It scores ten dimensions, gives eight falsifiable hypotheses, and proposes six study designs. The goal is not censorship. The goal is measurement, friction, and better education for the audience that actually exists, not only the audience creators imagine.
+
+\par\vspace{6pt}
+{\sffamily\scriptsize\color{slate}\textbf{KEYWORDS:}
+therapy-speak · cognitive security · detection-rule leakage · trust camouflage ·
+concept creep · context collapse · MIPU · MAP · gaslighting · DARVO ·
+no contact · adversarial learning · mental-health misinformation ·
+diagnostic labeling · algorithmic amplification}
+\end{abstractpanel}
+\vspace{0.8em}
+
+%=====================================================================
+\section{Introduction: The Other Student in the Classroom}
+%=====================================================================
+
+Picture a classroom. A security expert stands at the front teaching people how to spot pickpockets. In the front row sit people who have actually been robbed, and they need this lesson. In the middle rows are regular people who will walk out a little sharper, though some of them may start seeing thieves everywhere they look. In the back row sits an actual pickpocket, taking notes like it is professional development. One lesson, three completely different takeaways. The teacher has no way of knowing who is learning what. Neither does the algorithm pushing the video (Figure~\ref{fig:classroom}).
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[font=\sffamily\scriptsize,
+  row/.style={rectangle,rounded corners=2pt,minimum width=6.6cm,
+              minimum height=0.72cm,align=center},
+  lbl/.style={font=\sffamily\bfseries\scriptsize}]
+\node[row,fill=teal!18,draw=teal,thick] (front)
+  {FRONT ROW · victims \;→\; protection};
+\node[row,fill=mist2,draw=slate!60,below=0.28cm of front] (mid)
+  {MIDDLE ROWS · ordinary viewers \;→\; alertness + false positives};
+\node[row,fill=amber!22,draw=amberdeep,thick,below=0.28cm of mid] (back)
+  {BACK ROW · adversarial learner \;→\; evasion notes};
+\node[ellipse,fill=ink,text=white,minimum width=3.1cm,minimum height=0.7cm,
+      above=0.45cm of front,font=\sffamily\bfseries\scriptsize] (lesson)
+  {ONE PUBLIC LESSON};
+\draw[-{Stealth},thick,teal]      (lesson) -- (front);
+\draw[-{Stealth},thick,slate]     (lesson.south west) to[bend right=22] (mid.west);
+\draw[-{Stealth},thick,amberdeep] (lesson.south east) to[bend left=28]  (back.east);
+\node[lbl,color=risk,below=0.22cm of back]
+  {The platform cannot tell the rows apart.};
+\end{tikzpicture}
+\caption{The open-audience classroom. A single detection lesson is received simultaneously
+by protective, neutral, and adversarial learners, with no mechanism to separate them.}
+\label{fig:classroom}
+\end{figure}
+
+Short-form content about abuse is that same classroom, scaled to billions of views. There is no intake form, no case file, and no way to know who is sitting where. People usually argue about whether the advice is accurate or whether the creator has credentials. Those things matter. But even a perfect video from a trained clinician still lands in the same mixed room. The question almost nobody asks is the one that changes everything: who else is watching?
+
+Once you ask that question, the subject shifts. The content does not reach a clean group of victims. It reaches people who genuinely need the language. It reaches people trapped in messy fights that are not abuse. It reaches anxious viewers who want certainty so badly that almost any label feels like relief. It reaches people looking for sharper tools to accuse with. It reaches creators who have learned that moral authority travels well online. And it reaches the exact people the content warns everyone about. That is not a side effect. That is the structure.
+
+A detection rule that protects one viewer can train another. A warning can teach someone how to hide better. A term that gives one person clarity can become ammunition for someone else. The person sounding protective on camera might be building a following while running the same patterns off camera.
+
+This is why I treat viral therapy-speak as a cognitive-security problem. The question is how people can protect the way they form beliefs, set evidence standards, update their read on others, and interpret social signals when the input is simplified, emotionally charged, and algorithmically amplified. I am not saying therapy-speak is always bad. Abuse and coercive control are real, and sometimes no contact is the only safe option. The narrower point is that psychological rules stop being neutral information when platforms strip them down, crank them up emotionally, and blast them into an audience whose motives stay invisible.
+
+The usual misinformation frame does not cover that. A false claim is one kind of failure. Sometimes the dangerous thing is a rule that is mostly true, stripped of context and case history, landing in the wrong hands and quietly changing what someone now treats as proof.
+
+\begin{keyclaim}
+Viral therapy-speak can change what counts as proof before people notice that their standard of proof has moved.
+\end{keyclaim}
+
+%=====================================================================
+\section{The Mechanism Exposed}
+%=====================================================================
+
+Nobody had to design this in a back room. The loop hides in plain sight because different fields have been studying different pieces of it under different names. One field studies concept creep. Another studies context collapse. Another studies memory, diagnostic labels, outrage, and misinformation persistence. When those pieces are placed in sequence, the mechanism becomes easier to see (Figure~\ref{fig:chain}).
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[font=\sffamily\tiny,node distance=0.17cm,
+  chainstep/.style={rectangle,rounded corners=1.5pt,fill=mist2,draw=teal!70,
+    minimum width=7.0cm,minimum height=0.40cm,align=left,inner xsep=5pt},
+  hot/.style={chainstep,fill=amber!20,draw=amberdeep}]
+\node[chainstep] (s1) {1 · Clinic words spill into normal talk};
+\node[chainstep,below=of s1] (s2) {2 · The word stretches in the feed};
+\node[hot, below=of s2] (s3) {3 · The angriest clean answer travels};
+\node[chainstep,below=of s3] (s4) {4 · Creators turn nuance into signs};
+\node[chainstep,below=of s4] (s5) {5 · Everybody gets the same lesson};
+\node[chainstep,below=of s5] (s6) {6 · Half-stories get read through it};
+\node[chainstep,below=of s6] (s7) {7 · A real person gets renamed by the label};
+\node[chainstep,below=of s7] (s8) {8 · Repair starts looking suspicious};
+\node[chainstep,below=of s8] (s9) {9 · Exit or accusation feels easier};
+\node[hot, below=of s9] (s10){10 · Some harmful viewers learn what to hide};
+\node[chainstep,below=of s10](s11){11 · Performers learn the safety costume};
+\node[chainstep,below=of s11](s12){12 · The story feeds the next upload};
+\node[hot, below=of s12](s13){13 · The loop starts feeding itself};
+\foreach \a/\b in {s1/s2,s2/s3,s3/s4,s4/s5,s5/s6,s6/s7,s7/s8,s8/s9,
+                   s9/s10,s10/s11,s11/s12,s12/s13}
+  \draw[-{Stealth},teal!80,thin] (\a) -- (\b);
+\draw[-{Stealth},amberdeep,thick,dashed]
+  (s13.west) .. controls +(-1.0,0) and +(-1.0,0) .. (s3.west)
+  node[midway,rotate=90,above,font=\sffamily\tiny\bfseries,
+       color=amberdeep] {feedback};
+\end{tikzpicture}
+\caption{One way the loop can run. The dashed line shows how strong stories feed more strong stories.}
+\label{fig:chain}
+\end{figure}
+
+The chain is not a claim that every viewer walks through every step. It is a claim about a pathway that platforms make available at scale. Clinical words leave bounded settings, become short moral signs, reach unscreened viewers, and then begin affecting how those viewers interpret people they already know. OAPRM exists so that this can be measured instead of merely complained about.
+
+The main unit of analysis is the audience, not the word. A hammer is a tool in one hand and a weapon in another. A psychological term can name harm, excuse avoidance, help someone leave danger, help someone accuse first, or let someone borrow moral trust they have not earned. The word alone does not decide the outcome. The viewer, the motive, the relationship history, and the surrounding platform incentives decide what the word becomes.
+
+%=====================================================================
+\section{Existing Evidence: The Proof Ledger}
+%=====================================================================
+
+This argument is not built from frustration. It connects pieces already sitting across several research areas. No single study proves that viral therapy-speak creates open-audience harm. That is exactly why synthesis matters. One field explains how harm words stretch. Another explains how feeds collapse audiences. Another explains how labels, memory, outrage, and correction failures change later judgment. The assembled chain remains the test object, but the links are not imaginary.
+
+\subsection{Therapy-speak is already flagged}
+Isern-Mas and Almagro (2025) examine loose clinical language in daily life. Their risk list lines up with the problem studied here: eroded meanings, ordinary life turned pathological, self-diagnosis, discrediting others, dodging responsibility, status games, and borrowed medical authority. Almagro and Isern-Mas also show the double edge. Popular language can help people name pain, while the same popularity can dull the concepts. This paper adds the open-audience question: what happens when dulled language reaches victims, confused viewers, false accusers, performers, and adversaries at the same time?
+
+\subsection{Harm words expand}
+Haslam's (2016) work on concept creep gives the semantic backbone. Words such as trauma, abuse, bullying, and prejudice can stretch into milder territory over time. Once a word stretches far enough, ordinary conflict can start to look pathological. The next question is practical: who learns the stretched version, and what do they do with it?
+
+\subsection{Social media smashes audiences together}
+Marwick and boyd (2011) describe context collapse: different audiences get mashed into the same feed, so the speaker cannot tailor the message. A recipe can survive that collapse because the stakes are low. A detection rule for hidden abuse carries higher stakes because it can affect accusation, trust, evasion, repair, and severance.
+
+\subsection{Moral language becomes status play}
+Tosi and Warmke (2016) show how moral talk can become self-promotion. Anti-abuse language fits that incentive perfectly because the speaker appears protective, virtuous, and difficult to criticize. The darker version is trust camouflage: a person sounds like a protector in public while using related tactics in private.
+
+\subsection{Memory is messy}
+Loftus and Palmer (1974) and Loftus (2005) show that memory is reconstructive. Two honest people can remember the same event differently. Content that treats memory disagreement as automatic gaslighting sets the evidence bar lower than the science supports. That lower bar can decide whether a relationship moves toward repair or burns down.
+
+\subsection{DARVO is real, and checklists can still warp it}
+Harsey and Freyd (2020) show that DARVO affects credibility judgments, and that education can blunt some of those effects. The open-audience trap begins when DARVO becomes a shortcut. A person denying a false accusation can match the surface pattern. A manipulator can soften the obvious moves. A false accuser can invoke DARVO first so that defense itself starts looking like proof. The same concept can protect or distort depending on how it is taught and used.
+
+\subsection{Short-form mental-health content already misleads at scale}
+Research on ADHD TikTok, CBT TikTok, functional tic-like behavior, and mental-health misinformation shows that social platforms can shift perception, confidence, and symptom language at scale (Yeung et al., 2022; Karasavva et al., 2025; Lorenzo-Luaces et al., 2023; Frey et al., 2022; Nguyen et al., 2024). The same mechanism becomes more socially dangerous when the target moves from self-diagnosis to other-diagnosis.
+
+\subsection{Diagnostic labels reshape perception}
+Altmann et al. (2024) show that diagnostic labels can change how people read marginal mental-health cases, including treatment need, agency, empathy, and expected recovery. Viral quasi-labels such as narcissist and gaslighter can carry similar weight with far fewer guardrails.
+
+\subsection{Bad updates can survive correction}
+Ecker et al. (2022) and Walter and Tukachinsky (2020) show that misinformation can keep affecting reasoning after correction. This gives MIPU/MAP part of its empirical spine. The claim is not that every update is permanent. The claim is that some updates are easier to install than to remove, especially when they arrive with emotion, identity, and social confirmation attached.
+
+\subsection{Naming can also calm people down}
+The protective branch matters. Lieberman et al. (2007) found that putting feelings into words can reduce emotional reactivity. That work concerns labeling one's own affect, so it cannot be treated as proof that labeling other people is safe. Still, it shows why crude anti-label arguments are wrong. Naming can regulate. OAPRM targets the failure case, where a label stops organizing evidence and starts replacing it.
+
+\subsection{Outrage travels}
+Brady et al. (2017) show that moral-emotional language spreads faster. McLoughlin et al. (2024) show that misinformation can ride outrage. Milli et al. (2023) show that engagement ranking can amplify divisive content even when users say they prefer otherwise. Those incentives reward the cleanest, hottest version of a psychological claim, not the most careful one.
+
+\subsection{Adversaries adapt when rules become visible}
+The adjacent evidence comes from adversarial machine learning, moderation evasion, and intimate-partner surveillance (Vassilev et al., 2025; Bickham et al., 2024; Tseng et al., 2020). These literatures show that motivated actors can adapt when boundaries become visible. This does not prove every abusive person becomes strategic. It supports a narrower risk: some motivated viewers can learn from the same public signs meant to protect others.
+
+\subsection{True information can still become risky}
+Information-hazard work and vulnerability-disclosure debates explain why true information can create risk when released without the right structure (Bostrom, 2011; Wardle and Derakhshan, 2017; Rescorla, 2005; Schneier, 2007). OAPRM is the therapy-speak version of that old fight. The issue is not whether the information is true in isolation. The issue is how a mixed audience can use it once it travels.
+
+\subsection{Estrangement is real, complex, and easily flattened}
+Pillemer (2020) and Coleman (2021) show that estrangement is messy and varied. Some distance is necessary. Some no-contact decisions protect people from danger. The risk begins when platforms turn no contact into a default script detached from severity, evidence, repair, and safety planning.
+
+\begin{table}[t]
+\centering\footnotesize\sffamily
+\caption{The proof ledger. Individual links have evidence; the assembled chain remains the test object.}
+\label{tab:ledger}
+\begin{tabularx}{\columnwidth}{@{}Y L{2.1cm}@{}}
+\toprule
+\rowcolor{mist2}\textbf{Link} & \textbf{Status} \\
+\midrule
+Term expansion & Evidenced \\
+Audience collapse & Evidenced \\
+Mental-health misinformation & Evidenced \\
+Diagnostic-label effects & Evidenced \\
+Memory malleability & Evidenced \\
+DARVO credibility effects & Evidenced \\
+Correction resistance & Evidenced \\
+Affect labeling benefit & Evidenced \\
+Emotional amplification & Evidenced \\
+Adversarial adaptation & Adjacent \\
+Severance complexity & Evidenced \\
+Assembled open-audience chain & Untested here \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+%=====================================================================
+\section{Construct Status}
+%=====================================================================
+
+MIPU, MAP, and OAPRM are proposed constructs, not settled science. The paper gives the definitions, hypotheses, coding rules, evidence standards, self-audit, and study designs needed to judge them. The argument does not ask readers to trust an earlier program. It stands or falls on what is written here.
+
+The word ``irreversible'' stays inside MIPU for continuity, but the technical meaning is modest. It means asymmetric reversal cost: the update can form quickly, while undoing it usually requires more evidence, trust, time, or lived contradiction than forming it required.
+
+%=====================================================================
+\section{What MIPU/MAP Adds}
+%=====================================================================
+
+Existing theories already explain pieces of belief updating, mental structure, and failed correction. MIPU/MAP targets a narrower event: a small input collides with a viewer's expectations, changes what the viewer notices next, and leaves behind a reversal cost that is larger than the cost of adoption.
+
+Bayesian updating tracks probability shifts. MIPU/MAP asks when a label stops being a probability adjustment and starts changing what counts as relevant evidence. Moving from 0.3 to 0.7 is one kind of update. Reframing apology as hoovering or disagreement as DARVO changes the evidence field itself.
+
+Schema theory describes durable mental structures. MIPU names the installation moment that makes one start forming. MAP names the larger lens that appears when multiple MIPUs begin supporting one another. The emphasis is not just that people have schemas. The emphasis is that some prediction lenses are cheap to install and expensive to dismantle once recognition has shifted.
+
+Predictive processing helps explain why the moment can feel clarifying. A sudden label reduces uncertainty, and that reduction can feel like truth. MIPU/MAP adds the audit this domain needs: did clarity improve prediction across situations, or did it simply narrow what the viewer now treats as signal?
+
+Concept creep explains how harm terms stretch. MIPU/MAP follows the stretched term into a viewer's future perception. A broad term is one problem. A broad term that becomes a quick social prediction engine is another.
+
+The three-layer stack keeps the distinction clean. Context collapse explains distribution. Open-audience dynamics explain why different viewers use the same lesson differently. MIPU/MAP tracks what gets carried away inside the viewer and what later becomes hard to revise (Figure~\ref{fig:stack}).
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[font=\sffamily\scriptsize,
+  layer/.style={rectangle,rounded corners=3pt,minimum width=6.85cm,minimum height=0.88cm,
+                text width=6.35cm,align=center,inner sep=6pt,thick}]
+\node[layer,fill=teal!14,draw=teal] (l1)
+  {\textbf{LAYER 1: DISTRIBUTION}\\Context collapse: the same message reaches everyone.};
+\node[layer,fill=amber!18,draw=amberdeep,below=0.25cm of l1] (l2)
+  {\textbf{LAYER 2: USE}\\Open-audience failure: viewers turn the lesson toward different ends.};
+\node[layer,fill=mist2,draw=ink,below=0.25cm of l2] (l3)
+  {\textbf{LAYER 3: INTERNALIZATION}\\MIPU/MAP: some viewers carry away a new predictive lens.};
+\draw[-{Stealth},thick,teal] (l1) -- (l2);
+\draw[-{Stealth},thick,amberdeep] (l2) -- (l3);
+\end{tikzpicture}
+\caption{The three-layer stack. Distribution is not the same as internalization.}
+\label{fig:stack}
+\end{figure}
+
+%=====================================================================
+\section{Core Vocabulary}
+%=====================================================================
+
+The terms below are working definitions for measurement. They are meant to keep the argument scoreable rather than ornamental.
+
+\begin{defn}{ · Therapy-speak}
+Clinical-sounding language used to interpret social life: gaslighting, narcissist, trauma, toxic, triggered, attachment style, boundaries, love bombing, trauma bond, hoovering, DARVO, emotional abuse, and no contact. It can help people name real harm. Risk rises when the terms become broad, low-evidence labels for anything painful or uncomfortable.
+\end{defn}
+
+\begin{defn}{ · Viral pseudo-psychology}
+Public psychology content that borrows clinical authority while dropping clinical restraints such as case evidence, scope limits, counterexamples, professional responsibility, and downstream accountability. The issue is content structure, not credentials alone. A licensed therapist can make risky viral content, and an anonymous poster can make careful content.
+\end{defn}
+
+\begin{defn}{ · Open audience}
+A viewer pool with unknown motives and roles: victims, people in ordinary fights, anxious viewers, false accusers, harmful actors, status-seeking creators, friends hearing half a story, and bystanders who reuse the language elsewhere.
+\end{defn}
+
+\begin{defn}{ · Detection rule}
+A rule that tells viewers which signs reveal a hidden pattern. Examples include treating denial as DARVO, fast affection as love bombing, memory disagreement as gaslighting, or family concern as proof that no contact is required.
+\end{defn}
+
+\begin{defn}{ · Detection-rule leakage}
+The risk that a public lesson meant to help people spot manipulation also reveals the detection boundary to people who want to evade it. The same rule trains every viewer, including some viewers it was built to catch.
+\end{defn}
+
+\begin{defn}{ · Trust camouflage}
+Credibility gained by publicly opposing harmful behavior while privately using related tactics. The manipulator posts about manipulation. The reversal tactician teaches DARVO. The creator builds a following around victim protection while treating criticism as abuse. The mistake is simple: people hear anti-abuse fluency and confuse it with evidence of safety.
+\end{defn}
+
+\begin{defn}{ · False positive}
+A heavy label applied to a person or behavior that fuller evidence would not support. This matters because labels such as abuser, narcissist, and gaslighter are sticky. Once attached, the accused person can lose the ability to explain, repair, or be read fairly.
+\end{defn}
+
+\begin{defn}{ · MIPU}
+A Minimal Irreversible Predictive Update is the smallest input that changes what a viewer notices, expects, or questions next at asymmetric reversal cost. ``Irreversible'' does not mean impossible to reverse. It means the update can install quickly while undoing it usually takes repeated counterevidence, trusted correction, emotional work, or lived contradiction.
+\end{defn}
+
+\begin{defn}{ · MAP}
+A Maximal Anticipatory Pattern is the larger lens that forms when multiple MIPUs stabilize together. Once formed, it guides attention, memory, fear, evidence standards, trust, repair behavior, and action across situations. It behaves less like one belief and more like a filter.
+\end{defn}
+
+\begin{defn}{ · Low-quality irreversibility}
+A durable prediction update produced by weak, context-poor, emotionally charged content. The paradigm case is a five-second clip that recodes a ten-year relationship and outlives the evidence that created it.
+\end{defn}
+
+%=====================================================================
+\section{The Failure, Anatomized}
+%=====================================================================
+
+The frustrating part is that many people inside this chain are acting in good faith. A creator wants to help. A viewer wants clarity. A term contains real truth. Harm can still happen because the structure is built for reach, not for judgment.
+
+First, the creator is flying blind. There is no relationship history, danger assessment, or reliable way to know whether the viewer is a victim, a perpetrator, a confused partner, or someone being fairly called out. Second, the viewer can attach a heavy label to an absent person after seeing only a partial match. Third, the algorithm rewards certainty, so ``toxic'' travels farther than careful talk about pattern, power, duration, motive, and context. Fourth, the back row is always occupied. Some people learn to hide, some learn to accuse, and some learn to dress themselves in moral language.
+
+The final step is the most dangerous. Once the label sticks, repair signals can become further evidence. An apology becomes hoovering. A question becomes gaslighting. Confusion becomes DARVO. The verdict starts writing the trial.
+
+%=====================================================================
+\section{Three Harms Running Simultaneously}
+%=====================================================================
+
+\subsection{Mislabeled innocent}
+Many signs taught in viral content appear in both abuse and ordinary life: defensiveness, memory gaps, fast affection, conflict avoidance, apologizing, or asking to talk. Denial can be lying, but it can also be truth. Fast intensity can be love bombing, but it can also be excitement, anxiety, or immaturity. The false-positive path is short: a viewer sees a partial match, treats it as proof, recodes the person, and then filters future behavior through the label. From inside the experience, it feels like sudden clarity rather than a chain of small interpretive moves.
+
+\subsection{Educated abuser}
+Manipulative people have phones. That does not mean every harmful person becomes a master strategist. Many act from entitlement, anger, habit, or control, and many are bad at hiding it under pressure. The leakage claim is narrower: public checklists can teach some motivated viewers which obvious signs to sand down. Old red flags may fade while the control stays. OAPRM therefore treats adversarial adaptation as a risk to test, not a settled fact about all abusers.
+
+\subsection{Protector who is not}
+Trust camouflage scales cleanly online. Public anti-abuse language can buy instant credibility. Criticism can be reframed as harm. Followers can defend the halo. Once a person occupies the protector slot, harm from that person becomes harder to name.
+
+\begin{keyclaim}
+Anti-abuse fluency can be weak evidence in some contexts, but it is never proof of safety. The downside of misreading it is too high.
+\end{keyclaim}
+
+%=====================================================================
+\section{One-Way Door: Why It Does Not Wash Out}
+%=====================================================================
+
+Before the video, the viewer may only think, ``this relationship is confusing.'' After the video, the thought can harden into, ``this is gaslighting.'' If the label is right, that moment can save someone. If the label is wrong, the same machinery can still run. Memories reorganize, future behavior gets filtered, and the feeling of awakening cannot tell the viewer which case they are in.
+
+The risk grows when terms cluster. Love bombing explains the honeymoon. Gaslighting explains disagreement. DARVO explains defense. Trauma bond explains attachment. Narcissism explains personality. No contact supplies the exit. Together they create a complete story with a villain, a mechanism, a proof test, and an action command.
+
+Inside a closed map, almost every response gets absorbed. If the accused apologizes, that becomes hoovering. If they deny, that becomes DARVO. If they cry, that becomes manipulation. If they ask what happened, that becomes gaslighting. If they go quiet, that becomes stonewalling. Figure~\ref{fig:closedmap} shows the trap.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[font=\sffamily\tiny]
+\node[circle,fill=ink,text=white,minimum size=1.55cm,align=center,
+      font=\sffamily\bfseries\tiny] (core) {THE\\LABEL};
+\foreach \ang/\resp/\rec in {
+  90/{apologize}/{hoovering},
+  30/{deny}/{DARVO},
+  -30/{cry}/{manipulation},
+  -90/{ask what happened}/{gaslighting},
+  -150/{go quiet}/{stonewalling},
+  150/{outside doubt}/{invalidation}}{
+\node[rectangle,rounded corners=2pt,fill=mist2,draw=teal!70,
+      align=center,minimum width=1.85cm,minimum height=0.62cm]
+(n\ang) at (\ang:2.85cm)
+{\textcolor{slate}{\resp}\\[-1pt]\textcolor{risk}{\bfseries → \rec}};
+\draw[-{Stealth},amberdeep,thick] (n\ang) -- (core);
+}
+\node[font=\sffamily\scriptsize\bfseries,color=risk,below=2.4cm of core]
+{No move on the board counts as innocence.};
+\end{tikzpicture}
+\caption{Closed interpretive map. Every response is absorbed as confirmation.}
+\label{fig:closedmap}
+\end{figure}
+
+This is why ``just vocabulary'' is too weak as a defense. Some vocabulary gives people freedom. Some vocabulary becomes a one-way door. The difference has to be measured.
+
+%=====================================================================
+\section{Objection That Should Have Killed This Paper}
+%=====================================================================
+
+The strongest counterargument deserves full force. Security engineering abandoned secrecy long ago. Kerckhoffs argued that a good system should remain secure even when the adversary knows the design. Victims need public education, and abusive people often know their tactics already. If that objection wins, leakage becomes a reason to publish more, not a reason to slow down.
+
+The anti-secrecy point is right. Silence helps abusers. The better comparison is responsible disclosure. Security people do not hide every vulnerability forever, but they also do not dump every operational detail with no patch, timing, warning, or audience care. Therapy-speak needs the same maturity.
+
+The password analogy still helps. A system can survive public knowledge of its design. It cannot survive someone posting the password on the wall. Weak viral therapy-speak often behaves like the second case. It gives fixed signs, magic phrases, and instant-proof rules. Better education teaches the pattern without pretending that one phrase unlocks the case. It publishes protection without handing out a brittle evasion map.
+
+The alternative is resilient disclosure: teach pattern reasoning under uncertainty. Pattern, repetition, motive, power, benefit, refusal of repair, isolation, and evidence over time matter more than one phrase or one clip. Table~\ref{tab:disclosure} shows the difference.
+
+\begin{table*}[t]
+\centering\footnotesize\sffamily
+\caption{Weak versus resilient disclosure. Weak disclosure treats signs like passwords; resilient disclosure teaches pattern reasoning.}
+\label{tab:disclosure}
+\begin{tabularx}{\textwidth}{@{}L{4.45cm}Y@{}}
+\toprule
+\rowcolor{mist2}\textbf{Weak disclosure} & \textbf{Resilient disclosure} \\
+\midrule
+``Five signs of gaslighting.'' &
+``Gaslighting is repeated pattern of reality manipulation. Memory disagreement proves nothing alone.
+Look for repetition, motive, power imbalance, refusal of correction, isolation,
+benefit from confusion, and what evidence would change mind.'' \\[4pt]
+``Move fast = love bombing.'' &
+``Fast affection sincere or manipulative. Risk rises with pressure, isolation, premature promises, guilt, control,
+then devaluation. Intensity alone = intensity.'' \\[4pt]
+``Deny = DARVO.'' &
+``DARVO reversal pattern. Innocent people deny too because some accusations false.
+Watch denial + attack + credibility reversal + evidence avoidance across time.'' \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\begin{keyclaim}
+The choice was never between educating victims and staying silent. The real choice is between education that survives an open audience and education that breaks once the back row learns it too.
+\end{keyclaim}
+
+%=====================================================================
+\section{Instrument: OAPRM}
+%=====================================================================
+
+OAPRM is a prototype coding instrument, not a validated scale yet. Coders score each dimension from 0 to 5. The instrument can be tested through inter-rater reliability, factor analysis, and outcome prediction. The ten dimensions are expected to cluster into semantic distortion, misuse risk, and irreversibility risk, but the data may refuse that structure. If the factors do not hold, the model has to change.
+
+\begin{table*}[t]
+\centering\scriptsize\sffamily
+\caption{OAPRM instrument. Dims 0--5. Shaded bands = predicted factors.}
+\label{tab:oaprm}
+\begin{tabularx}{\textwidth}{@{}L{0.7cm}L{2.85cm}Y Y@{}}
+\toprule
+\rowcolor{mist2}\textbf{} & \textbf{Dimension} &
+\textbf{High-risk (5)} & \textbf{Low-risk (0--1)} \\
+\midrule
+\rowcolor{teal!12}
+\textbf{S} & \textbf{\textcolor{tealdark}{Semantic}} &
+\textcolor{tealdark}{Drift / inflation / corruption} &
+\textcolor{tealdark}{Rows 11.1--11.3} \\
+11.1 & Semantic Drift & ``Gaslighting = disagreeing.'' & ``Repeated pattern + context + evidence.'' \\
+11.2 & Diagnostic Inflation & ``Attention-seeker = narcissist.'' & ``Many causes; no disorder established.'' \\
+11.3 & Evidence Corruption & ``Saying X = proves Y.'' & ``X in many contexts; pattern matters.'' \\
+\midrule
+\rowcolor{amber!16}
+\textbf{M} & \textbf{\textcolor{amberdeep}{Misuse}} &
+\textcolor{amberdeep}{Leakage / adaptation / misuse / camo} &
+\textcolor{amberdeep}{Rows 11.4--11.6, 11.8} \\
+11.4 & Intent Failure & Every viewer = victim assumed. & Warnings against diagnosing from clips included. \\
+11.5 & Detection Leakage & ``Exact phrases manipulators use.'' & Pattern reasoning; no fixed scripts. \\
+11.6 & Adversarial Adaptation & Visible markers only. & Long-term evidence-based assessment. \\
+11.8 & Camouflage Potential & Creator uniquely safe; crit = harm. & Education separate from moral status. \\
+\midrule
+\rowcolor{risk!10}
+\textbf{I} & \textbf{\textcolor{risk}{Irreversibility}} &
+\textcolor{risk}{FP / severance / suppression} &
+\textcolor{risk}{Rows 11.7, 11.9, 11.10} \\
+11.7 & FP Susceptibility & Signs common stress/grief/neuro/culture. & Counterexamples supplied. \\
+11.9 & Severance Activation & ``Do X once = run.'' & Danger/bounds/repair/safety distinguished. \\
+11.10 & Repair Suppression & ``Apology = hoovering.'' & Unsafe reconcil vs genuine repair separated. \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+%=====================================================================
+\section{Eight Ways to Prove Wrong}
+%=====================================================================
+
+Every major claim has to be a bet that can lose.
+
+\begin{tcolorbox}[enhanced,colback=mist,colframe=teal,
+  boxrule=0.8pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,
+  before skip=4pt,after skip=6pt,
+  title={\sffamily\bfseries FALSIFIABLE HYPOTHESES},
+  coltitle=white,colbacktitle=tealdark,fonttitle=\scriptsize,
+  fontupper=\scriptsize]
+\setlength{\parskip}{1.4pt}
+\setlength{\baselineskip}{9.1pt}
+
+\textbf{H1.} Checklist therapy-speak lowers evidence bars compared with careful education.
+
+\textbf{H2.} High false-positive content increases other-diagnosis in ambiguous cases.
+
+\textbf{H3.} High-leakage content helps adversarial participants build cleaner evasion plans.
+
+\textbf{H4.} Diagnostic labels plus severance commands produce more blocking and no-contact comments.
+
+\textbf{H5.} Repair-suppression language reduces clarifying questions and safe repair attempts.
+
+\textbf{H6.} Term clusters create stronger closed-loop interpretation than single terms.
+
+\textbf{H7.} Risk concentrates in a small subset of posts rather than spreading evenly.
+
+\textbf{H8.} Resilient disclosure keeps usefulness while reducing false labels and evasion potential.
+\end{tcolorbox}
+
+If the data cut against these claims, the model must be revised or scrapped. A paper about closed maps cannot become one.
+
+%=====================================================================
+\section{Claim Licensing}
+%=====================================================================
+
+Different claims need different evidence. Descriptive claims need corpus coding. Mechanism claims need experiments, longitudinal data, or strong triangulation. MIPU/MAP claims face the highest bar because they require persistence, transfer, and resistance to counterevidence. Until those studies run, the framework is a plausible map with tests attached, not a settled result.
+
+%=====================================================================
+\section{Studies}
+%=====================================================================
+
+Six study designs can move the paper from framework to evidence.
+
+\textbf{Corpus study.} Collect public content and code transcripts, engagement, definitions, counterexamples, warnings, calls to action, and comment samples.
+
+\textbf{OAPRM coding study.} Train raters, test reliability, run factor analysis, and test whether scores predict comment outcomes.
+
+\textbf{Comment outcome study.} Code other-diagnosis, severance intent, repair refusal, perceived awakening, hostility to dissent, and concrete behavior change.
+
+\textbf{Priority experiment.} Randomly assign participants to careful education, viral checklist content, personal story content, or neutral conflict content. Use ambiguous vignettes to measure label confidence, evidence bars, repair willingness, alternate explanations, and resistance to counterevidence.
+
+\textbf{Adversarial simulation.} Use ethics-reviewed abstract role-play to compare checklist material with resilient material. The goal is to measure evasion planning without producing real-world scripts.
+
+\textbf{Longitudinal MAP study.} Track exposure, familiarity, other-diagnosis frequency, repair willingness, belief rigidity, and relationship outcomes over months.
+
+%=====================================================================
+\section{No-Contact Cluster}
+%=====================================================================
+
+No contact can save lives. Dangerous, coercive, obsessive, or destabilizing relationships sometimes require distance. Any framework that blurs that fact fails ethically.
+
+The risk sits in the cluster around the phrase, not the phrase alone: no contact, narcissist, toxic family, gaslighting, protect your peace, anyone questioning you is invalidating, never explain, they know what they did, and if they cared they would understand. Read as a system, the cluster welds exits shut. Questions become invalidation. Explanations become weakness. Reconsideration becomes proof that the person has not healed. OAPRM dimensions 11.3, 11.9, and 11.10 are built to catch this pattern while still protecting genuine escape.
+
+%=====================================================================
+\section{Mechanism Detection}
+%=====================================================================
+
+One video proves little. Repeated vocabulary can be a meme without becoming a harm pattern. Harmful convergence needs three layers at once (Figure~\ref{fig:convergence}).
+
+Layer 1 is linguistic: terms travel together, such as narcissist, gaslighting, trauma bond, boundaries, toxic, and no contact. Layer 2 is interpretive: evidence bars move, alternative explanations shrink, disagreement starts looking abusive, and repair starts looking suspicious. Layer 3 is behavioral: viewers other-diagnose, report severance, block, refuse repair, or suddenly reinterpret long relationships through the new label.
+
+A benign control such as sourdough or fitness can show whether jargon alone travels as a pack. It cannot carry the whole burden because abuse language is threat-relevant and sourdough is not. The better test compares crude abuse checklists, careful abuse education, and other threat lessons such as scam or crime awareness. If careful education raises useful caution without closing the map, OAPRM gains support. If every threat lesson looks the same, the model has to shrink.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[font=\sffamily\scriptsize,
+  lay/.style={rectangle,rounded corners=2pt,minimum width=6.7cm,text width=6.25cm,
+    align=left,inner sep=6pt,thick}]
+\node[lay,fill=mist2,draw=teal] (c1)
+  {\textbf{L1 · LINGUISTIC} - terms travel as pack\\[-1pt]
+  \textcolor{slate}{narcissist · gaslighting · trauma bond · boundaries · toxic · no contact}};
+\node[lay,fill=mist,draw=tealdark,below=0.22cm of c1] (c2)
+  {\textbf{L2 · INTERPRETIVE} - thresholds drop\\[-1pt]
+  \textcolor{slate}{fewer alternates · disagreement = abuse · repair = suspicious}};
+\node[lay,fill=amber!18,draw=amberdeep,below=0.22cm of c2] (c3)
+  {\textbf{L3 · BEHAVIORAL} - outcomes appear\\[-1pt]
+  \textcolor{slate}{other-diagnosis · severance · blocking · repair refusal · sudden reinterpreting}};
+\draw[-{Stealth},thick,teal] (c1) -- (c2);
+\draw[-{Stealth},thick,amberdeep] (c2) -- (c3);
+\node[rectangle,rounded corners=2pt,fill=white,draw=risk,thick,
+  align=center,below=0.3cm of c3,inner sep=5pt,text width=6.25cm]
+{\textcolor{risk}{\bfseries CONTROL:} matched benign lexicon must show L1 \emph{without} L2/L3.
+Benign jargon tests L1 only; threat controls test L2/L3.};
+\end{tikzpicture}
+\caption{Three-layer convergence. Benign jargon tests term-packing; threat controls test harmful closure.}
+\label{fig:convergence}
+\end{figure}
+
+%=====================================================================
+\section{Action Levels}
+%=====================================================================
+
+\subsection{Viewer: immunization}
+Before a label hardens, the viewer can slow the update down. What else explains this? Does the pattern repeat over time? What evidence would change my mind? Am I confusing discomfort with harm, safety with punishment, or repair with unsafe reconciliation? Did the content give counterexamples, or only certainty? Could someone use the same lesson to hide better? Has one term become the whole lens?
+
+\subsection{Creator: resilient disclosure}
+People making abuse or mental-health content for open audiences should define terms, state limits, give counterexamples, name evidence bars, offer alternate explanations, warn against diagnosing from clips, warn against weaponizing the lesson, acknowledge that adversaries may be watching, separate repair from danger, and point serious situations toward professionals. The goal is not to make the content weaker. The goal is to make it survive the real room it enters.
+
+\subsection{Platform: measurement and friction}
+High-risk content can carry light context nudges: ``Discusses abuse or health. Short clips cannot diagnose people. Serious situations need full context and professional help.'' Platforms could also score content along OAPRM dimensions such as drift, leakage, false-positive risk, repair suppression, trust camouflage, and comment clusters. The goal is measurement and light friction, not crude censorship.
+
+\subsection{Clinical and educational use}
+Therapists, mediators, and educators can ask clients where they learned a term, how they define it, what would falsify it, and whether the word clarified a mess or turned every interaction into confirmation. That last question is the compressed MAP-closure test.
+
+%=====================================================================
+\section{What Changes}
+%=====================================================================
+
+The old test is too small: did the content help the person it meant to help? A better test watches the whole room. One viewer needed the word. One viewer wanted a weapon. One viewer was confused and scared. One viewer learned how to sound safe. The same lesson can help, harm, and camouflage at once. That mixed result is the paper's target.
+
+\begin{keyclaim}
+Core claim: viral therapy-speak can change evidence bars before viewers notice the change. Sometimes it raises the bar by giving a person structure. Sometimes it lowers the bar by letting a label replace evidence. OAPRM is built to tell those apart.
+\end{keyclaim}
+
+This goes beyond simple falsehood. Partly true content can still install bad updates when it travels without context, limits, or audience-risk controls.
+
+%=====================================================================
+\section{Not Earned Yet}
+%=====================================================================
+
+This is a framework, a synthesis, and a research program. It is not finished validation. Strong MIPU/MAP claims stay at the evidence tier in Section~13 until studies run.
+
+The confounds are real. Some people were in danger before exposure. Some severance is justified. Some creators are careful. Some comments are performative. Exposure can follow a decision rather than cause it. Many labels scroll past and never stick. Corpus work alone will not settle causality, so experiments and longitudinal work are required.
+
+The research also has ethical limits. Adversarial simulations must stay abstract. The work cannot become an evasion manual for the behavior it warns about. Until data arrive, the framework is useful for three things: naming a mechanism, offering an instrument, and setting a research agenda.
+
+%=====================================================================
+\section{OAPRM Self-Audit}
+%=====================================================================
+
+A paper that says every audience matters has to run the same standard on itself. This framework can also be misused. A bad-faith reader could quote it at a real victim and say, ``your evidence bar collapsed,'' when the victim is actually naming a real pattern. A creator could use the language as a costume. A platform could turn measurement into crude censorship. Those are not side notes. They are this paper's own back row.
+
+\begin{table*}[t]
+\centering\scriptsize\sffamily
+\caption{OAPRM self-audit of this paper. Scores are provisional, 0--5.}
+\label{tab:selfaudit}
+\begin{tabularx}{\textwidth}{@{}L{3.0cm}L{1.2cm}Y@{}}
+\toprule
+\rowcolor{mist2}\textbf{Dimension} & \textbf{Score} & \textbf{Reason} \\
+\midrule
+Semantic drift & 1 & The paper defines its terms and keeps separating real abuse from ordinary conflict. \\
+Diagnostic inflation & 1 & It warns against diagnosing people from clips, comments, and one-sided stories. \\
+Evidence corruption & 2 & It gives strong labels for bad information flow, but Sections 12--14 keep the claims testable. \\
+Intent failure & 2 & The paper names the mixed audience, including victims, accusers, creators, abusers, and confused viewers. \\
+Detection leakage & 3 & It discusses evasion risk. It avoids detailed scripts and keeps the adversarial study abstract. \\
+Adversarial adaptation & 2 & It treats adaptation as a risk to test, not as a settled claim about all abusers. \\
+False-positive susceptibility & 2 & A bad-faith reader could misuse the framework to dismiss a real victim. The risk is named directly here. \\
+Trust camouflage & 2 & ZotBot.ai creates a possible commercial incentive, disclosed in the conflict statement. \\
+Severance activation & 1 & The paper protects no-contact for danger while warning against default severance scripts. \\
+Repair suppression & 1 & It separates unsafe reconciliation from genuine repair and asks what evidence would change the read. \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+The guardrail is simple. OAPRM does not decide truth from one label. It asks for pattern, time, power, motive, repair, counterexamples, and evidence that could change the read. Anyone using the framework to dismiss a claim without doing that work is misusing the framework.
+
+%=====================================================================
+\section{MIPU/MAP Coding Appendix}
+%=====================================================================
+
+These examples show how a coder might use OAPRM without pretending the score is a verdict. The coder asks four questions first. What input is offered? What prediction does it install? What does the viewer now notice or expect? What evidence would make the viewer revise?
+
+The examples below are training cases. Two raters should score independently, compare disagreements, and revise the codebook. The goal is not to decide whether a real relationship is abusive from one post. The goal is to score how risky the content structure becomes once it enters an open audience.
+
+\begin{table*}[t]
+\centering\scriptsize\sffamily
+\caption{Worked OAPRM examples. Scores are illustrative training judgments.}
+\label{tab:workedexamples}
+\begin{tabularx}{\textwidth}{@{}L{2.7cm}L{2.55cm}L{1.3cm}Y@{}}
+\toprule
+\rowcolor{mist2}\textbf{Content sample} & \textbf{Likely predictive update} & \textbf{Risk} & \textbf{Coding rationale} \\
+\midrule
+``Five signs they are gaslighting you.'' & Memory disagreement starts looking like abuse evidence. & 4 & High semantic drift and false-positive risk unless the post adds repetition, motive, power, correction refusal, and counterexamples. The likely MIPU is fast because the viewer gets a ready-made explanation for confusion. \\
+\addlinespace[2pt]
+``Gaslighting is repeated reality manipulation. Memory conflict alone proves little.'' & Pattern matters more than one sign. & 1 & The label is useful, but it tells the viewer what would and would not count as evidence. It raises the evidence bar rather than replacing it. \\
+\addlinespace[2pt]
+``If they deny it, that is DARVO.'' & Defense itself becomes confirmation. & 5 & Strong repair suppression. The viewer is given no route for honest denial, false accusation, memory error, or evidence review. This can create a closed MAP quickly. \\
+\addlinespace[2pt]
+``DARVO means denial plus attack plus role reversal across time. Innocent people can deny too.'' & Look for the full reversal pattern. & 1 & Keeps the concept while slowing the update down. It protects against checklist abuse and leaves room for correction. \\
+\addlinespace[2pt]
+``Go no contact with anyone who questions your healing.'' & Outside doubt becomes invalidation. & 5 & Strong severance script. It trains the viewer to treat concern, repair attempts, or disagreement as proof that the other person is unsafe. \\
+\addlinespace[2pt]
+``Distance may be needed when contact keeps you unsafe or unstable. Safe repair still needs evidence.'' & Safety and repair become separate questions. & 2 & Some severance activation remains, but the post adds limits, evidence, and room for genuine repair. \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\textbf{Coding rule.} Score the post, not the creator. Then score the comment culture separately. A careful post can still produce reckless comments. A sloppy post can still spark useful discussion. OAPRM is strongest when it tracks the content, the uptake, and the behavior that follows.
+
+\textbf{MIPU/MAP rule.} A likely MIPU appears when a small input changes what the viewer now treats as signal. A likely MAP appears when several labels start protecting one another, so responses from the target keep getting absorbed into the same story.
+
+%=====================================================================
+\section{Who Else Learns}
+%=====================================================================
+
+Therapy-speak became a mass-scale informal psychology system while nobody checked enrollment. It now teaches millions how to read relationships, what counts as evidence, which labels explain pain, and when to stop listening to someone they once trusted. That power deserves a higher standard.
+
+Public psychological education happens inside open audiences. The same lesson can reach a victim, an abuser, a false accuser, a confused partner, a performer, a predator, and a regular person having a terrible week. The lesson does not sort them. When the lesson is a simplified detection rule, the risks multiply.
+
+The point of naming the failure is measurement. Judge content by every audience it trains, not only by intention or accuracy. The victim sits in the front row. Ordinary viewers sit in the middle. Someone in the back row may be learning how to look cleaner next time.
+
+\begin{tcolorbox}[enhanced,colback=ink,colframe=ink,arc=3pt,
+  left=10pt,right=10pt,top=8pt,bottom=8pt]
+{\color{white}\small
+Question left running: \textbf{\color{amber}who else is watching?}
+Once landed, abuse-awareness content cannot be evaluated the same way again.
+That is the MIPU. The map changes from there.\par}
+\end{tcolorbox}
+
+%=====================================================================
+% BACK MATTER
+%=====================================================================
+\section*{Conflict of Interest Statement}
+{\small
+Founded ZotBot.ai, may build tools for cognitive-security analysis, content-risk scoring, and manipulation or pseudo-psychology detection. That creates a possible conflict because the paper proposes measurement systems relevant to such tools. The framework, hypotheses, and studies should be judged independently of any commercial use.\par}
+
+\section*{Author Note}
+{\small
+This paper stands independently. The terminology comes from a broader research program, but the definitions, hypotheses, scoring rules, and evidence standards needed to judge the argument are contained here.\par}
+
+\section*{AI and Document-Preparation Note}
+{\small
+This paper is not AI-authored. The framework, claims, examples, and research direction are Michael Zot's. AI tools were used only as document-production support: LaTeX cleanup, layout repair, formatting checks, citation-format cleanup, and PDF compilation. No AI system originated the framework or decided the argument. The argument itself, including MIPU/MAP, OAPRM, detection-rule leakage, and trust camouflage, remains the author's work.\par}
+
+\section*{References}
+%=====================================================================
+\begingroup
+\footnotesize
+\setlength{\parindent}{-1.2em}
+\setlength{\leftskip}{1.2em}
+\setlength{\parskip}{1.2pt}
+\linespread{0.96}\selectfont
+
+Bostrom, N. (2011). Information hazards: A typology of potential harms from knowledge. \emph{Review of Contemporary Philosophy, 10}, 44--79.
+
+Almagro, M., \& Isern-Mas, C. (2025). Blunting concepts: The double-edged effect of popularizing psychotherapy language. \emph{Philosophical Psychology}. Advance online. doi:10.1080/09515089.2025.2573763
+
+Altmann, B., Fleischer, K., Tse, J., \& Haslam, N. (2024). Effects of diagnostic labels on perceptions of marginal cases of mental ill-health. \emph{PLOS Mental Health, 1}(3), e0000096. doi:10.1371/journal.pmen.0000096
+
+Bickham, C., Kazemi-Nia, K., Luceri, L., Lerman, K., \& Ferrara, E. (2024). Hidden in plain sight: Intersections of mental health, eating disorders, content moderation on TikTok. \emph{arXiv}, arXiv:2404.15457
+
+Brady, W. J., Wills, J. A., Jost, J. T., Tucker, J. A., \& Van Bavel, J. J. (2017). Emotion shapes diffusion of moralized content in social networks. \emph{PNAS}, 114(28), 7313--7318
+
+Coleman, J. (2021). \emph{Rules of estrangement}. Harmony.
+
+Ecker, U. K. H., Lewandowsky, S., Cook, J., Schmid, P., Fazio, L. K., Brashier, N., Kendeou, P., Vraga, E. K., \& Amazeen, M. A. (2022). Drivers of misinformation belief and resistance to correction. \emph{Nature Reviews Psychology, 1}, 13--29
+
+Frey, J., Black, K. J., \& Malaty, I. A. (2022). TikTok Tourette's: Functional tic-like behavior driven by adolescent social media use? \emph{Psychology Research \& Behavior Management, 15}, 3575--3585. doi:10.2147/PRBM.S359977
+
+Harsey, S. J., \& Freyd, J. J. (2020). Deny, attack, reverse victim/offender: Credibility effects. \emph{J Aggression Maltreatment Trauma, 29}(8), 897--916
+
+Haslam, N. (2016). Concept creep. \emph{Psychological Inquiry, 27}(1), 1--17
+
+Isern-Mas, C., \& Almagro, M. (2025). Unmasking therapy-speak. \emph{Theoretical Medicine and Bioethics, 46}, 465--489. doi:10.1007/s11017-025-09730-5
+
+Karasavva, V., Miller, C., Groves, N., Montiel, A., Canu, W., \& Mikami, A. (2025). Double-edged hashtag: ADHD-related TikTok content perceptions. \emph{PLOS ONE, 20}(3), e0319335
+
+Kerckhoffs, A. (1883). La cryptographie militaire. \emph{J Sci Militaires, 9}, 5--38
+
+Lieberman, M. D., Eisenberger, N. I., Crockett, M. J., Tom, S. M., Pfeifer, J. H., \& Way, B. M. (2007). Putting feelings into words: Affect labeling disrupts amygdala activity in response to affective stimuli. \emph{Psychological Science, 18}(5), 421--428.
+
+Loftus, E. F. (2005). Planting misinformation: 30-year investigation of memory malleability. \emph{Learning \& Memory, 12}(4), 361--366
+
+Loftus, E. F., \& Palmer, J. C. (1974). Reconstruction of auto destruction: Language/memory interaction. \emph{J Verbal Learning Verbal Behavior, 13}(5), 585--589
+
+Lorenzo-Luaces, L., Dierckman, C., \& Adams, S. (2023). Attitudes/misinformation about CBT on TikTok. \emph{JMIR, 25}, e45571
+
+Marwick, A. E., \& boyd, d. (2011). Tweet honestly, tweet passionately. \emph{New Media \& Society, 13}(1), 114--133
+
+McLoughlin, K. L., Brady, W. J., Goolsbee, A., Kaiser, B., Klonick, K., \& Crockett, M. J. (2024). Misinformation exploits outrage online. \emph{Science}
+
+Milli, S., Carroll, M., Wang, Y., Pandey, S., Zhao, S., \& Dragan, A. D. (2023). Engagement, satisfaction, amplification of divisive content. \emph{arXiv}, arXiv:2305.16941
+
+Nguyen, V. C., Jain, M., Chauhan, A., Soled, H. J., Alvarez Lesmes, S., Li, Z., Birnbaum, M. L., Tang, S. X., Kumar, S., \& De Choudhury, M. (2024). Supporters and skeptics: LLM engagement with mental-health (mis)information on video platforms. \emph{arXiv}, arXiv:2407.02662
+
+Rescorla, E. (2005). Is finding security holes a good idea? \emph{IEEE Security \& Privacy, 3}(1), 14--19.
+
+Schneier, B. (2007). Full disclosure of security vulnerabilities a damned good idea. \emph{CSO Online}.
+
+Pillemer, K. (2020). \emph{Fault lines}. Avery.
+
+Tosi, J., \& Warmke, B. (2016). Moral grandstanding. \emph{Philosophy \& Public Affairs, 44}(3), 197--217
+
+Tseng, E., Bellini, R., McDonald, N., Danos, M., Greenstadt, R., McCoy, D., Dell, N., \& Ristenpart, T. (2020). Tools/tactics of intimate partner surveillance. \emph{USENIX Security Symposium}
+
+Vassilev, A., Oprea, A., Fordyce, A., \& Anderson, H. (2025). Adversarial machine learning: Taxonomy of attacks/mitigations (NIST AI 100-2e2025). National Institute of Standards.
+
+Wardle, C., \& Derakhshan, H. (2017). \emph{Information disorder: Toward an interdisciplinary framework for research and policy making}. Council of Europe.
+
+Walter, N., \& Tukachinsky, R. (2020). Meta-analytic exam of continued influence post-correction. \emph{Communication Research, 47}(2), 155--177
+
+Yeung, A., Ng, E., \& Abi-Jaoude, E. (2022). TikTok/ADHD cross-sectional. \emph{Can J Psychiatry, 67}(12), 899--906
+
+
+\endgroup
+
+\end{document}
+
